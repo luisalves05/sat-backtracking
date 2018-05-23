@@ -9,7 +9,7 @@
 
 import copy
 import sys, getopt
-
+import time
 
 """
     Função resposável por resolver o problema SAT
@@ -27,10 +27,11 @@ def resolver_sat(clausulas):
 
     # Se alguma clausula é vazia, retorna unsat
     for c in clausulas:
-        if not c:
-            return "unsat"
+       if None in c:
+           return "unsat"
 
     elem = clausulas[0][0] # primeiro elemento
+
     estado_atual = copy.deepcopy(clausulas)
 
     for c in clausulas:
@@ -40,34 +41,38 @@ def resolver_sat(clausulas):
             c.clear()
         else:
             for e in c:
-                if e == elem and len(c) == 1: # se torna falsa
-                    return "unsat"
                 if e == elem:
                     c.remove(e)
+                if not c:
+                    c.append(None)
 
-    # Removando listas vazias
-    clausulas = [c for c in clausulas if c]
+    # Removando listas vazias: expressão verdadeira
+    clausulas = [c for c in clausulas if len(c) != 0]
+
     # Primeira Parte: elemento receberá 0
     resultado = resolver_sat(clausulas)
 
-    if resultado == "unsat":
-        clausulas = copy.deepcopy(estado_atual)
-        for c in clausulas:
-             if -elem in c and elem in c: # se clausula se torna falsa
-                 return "unsat"
-             if elem in c:
-                 c.clear()
-             else:
-                 for e in c:
-                     if e == -elem and len(c) == 1: # se torna falsa
-                         return "unsat"
-                     if e == -elem:
-                         c.remove(e)
+    if resultado == "sat":
+        return resultado
 
-        # Removendo listas vazias
-        clausulas = [c for c in clausulas if c]
-        # Segunda Parte: se for unsat, vamos tentar com 1
-        resultado = resolver_sat(clausulas)
+    clausulas = copy.deepcopy(estado_atual)
+
+    for c in clausulas:
+         if -elem in c and elem in c: # se clausula se torna falsa
+             return "unsat"
+         if elem in c:
+             c.clear()
+         else:
+             for e in c:
+                 if e == -elem:
+                     c.remove(e)
+                 if not c:
+                     c.append(None)
+
+    # Removendo listas vazias
+    clausulas = [c for c in clausulas if len(c) != 0]
+    # Segunda Parte: se for unsat, vamos tentar com 1
+    resultado = resolver_sat(clausulas)
 
     return resultado
 
@@ -86,7 +91,7 @@ def processar_linha(linha):
 
 
 def executar(arquivo_entrada):
-    
+
     clausulas = []
     primeira_linha = False
 
