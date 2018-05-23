@@ -8,6 +8,7 @@
 #
 
 import copy
+import sys, getopt
 
 
 """
@@ -84,13 +85,13 @@ def processar_linha(linha):
     return [int(n) for n in itens]
 
 
-def main():
-
+def executar(arquivo_entrada):
+    
     clausulas = []
     primeira_linha = False
 
     # Lendo o arquivo teste de entrada;
-    with open('Teste0.txt', 'rt') as f:
+    with open(arquivo_entrada, 'rt') as f:
         for linha in f:
             itens = processar_linha(linha)
             if primeira_linha and itens[0] > 4:
@@ -101,9 +102,6 @@ def main():
             clausulas.append(itens)
 
     clausulas = [claus[2:] for claus in clausulas[1:]] # removendo dois primeiros
-    print(resolver_sat(clausulas))
-
-if __name__ == "__main__":
-    main()
+    return resolver_sat(clausulas)
 
 # 3-sat.py
