@@ -1,0 +1,29 @@
+Formato dos Arquivos
+
+primeira linha ==> n (número de variáveis) m (número de cláusulas)
+
+PrÛximas linhas (tantas quantas necessárias para ler todos os wi e suas disjunções)
+
+nj, wi, variáveis da disjunção => V1, V2 ... Vnj)
+
+nj = número de elementos (literais)
+terão linhas seguidas até que todos os literais sejam lidos
+
+Wi = "peso" de cada cláusua i (i=1,m) e quais variáveis 
+OBS: neste trabalho, desconsiderar este peso.
+
+Exemplo:
+
+5 4    (5 variáveis e 4 cláusulas)
+
+2 333 -1 3
+3 444 1 2 -5
+2 555 -4 5
+4 666 -2 3 4 -5
+
+Cláusulas:
+
+C1)  ~x1 ou x3    		Peso= 333
+C2)   x1 ou x2 ou ~x5   	Peso= 444
+C3)  ~x4 ou x5    		Peso= 555
+C4)  ~x2 ou x3 ou x4 ou ~x5 	Peso= 666
