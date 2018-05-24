@@ -27,54 +27,48 @@ def resolver_sat(clausulas):
 
     # Se alguma clausula é vazia, retorna unsat
     for c in clausulas:
-       if None in c:
-           return "unsat"
+        if None in c:
+            return "unsat"
 
     elem = clausulas[0][0] # primeiro elemento
+    estado_anterior = copy.deepcopy(clausulas)
 
-    estado_atual = copy.deepcopy(clausulas)
-
-    for c in clausulas:
-        if -elem in c and elem in c: # a clausula se torna falsa
+    for i in range(0, len(clausulas)):
+        if -elem in clausulas[i] and elem in clausulas[i]: # a clausula se torna falsa
             return "unsat"
-        if -elem in c:
-            c.clear()
+        elif elem in clausulas[i]: # elemento é 1
+            clausulas[i].clear()
         else:
-            for e in c:
-                if e == elem:
-                    c.remove(e)
-                if not c:
-                    c.append(None)
+            clausulas[i] = [e for e in clausulas[i] if e != -elem]
+            if len(clausulas[i]) == 0:
+               clausulas[i].append(None)
 
-    # Removando listas vazias: expressão verdadeira
+    # Removando listas vazias: expressões verdadeira
     clausulas = [c for c in clausulas if len(c) != 0]
-
     # Primeira Parte: elemento receberá 0
-    resultado = resolver_sat(clausulas)
 
-    if resultado == "sat":
-        return resultado
+    if resolver_sat(clausulas) == "sat":
+        return "sat"
 
-    clausulas = copy.deepcopy(estado_atual)
+    clausulas = copy.deepcopy(estado_anterior)
 
-    for c in clausulas:
-         if -elem in c and elem in c: # se clausula se torna falsa
-             return "unsat"
-         if elem in c:
-             c.clear()
-         else:
-             for e in c:
-                 if e == -elem:
-                     c.remove(e)
-                 if not c:
-                     c.append(None)
+    for i in range(0, len(clausulas)):
+        if -elem in clausulas[i] and elem in clausulas[i]: # a clausula se torna falsa
+            return "unsat"
+        elif -elem in clausulas[i]:
+            clausulas[i].clear()
+        else:
+            clausulas[i] = [e for e in clausulas[i] if e != elem]
+            if len(clausulas[i]) == 0:
+                clausulas[i].append(None)
 
-    # Removendo listas vazias
+    # Removendo listas vazias: expressões verdadeira
     clausulas = [c for c in clausulas if len(c) != 0]
     # Segunda Parte: se for unsat, vamos tentar com 1
-    resultado = resolver_sat(clausulas)
+    if resolver_sat(clausulas) == "sat":
+        return "sat"
 
-    return resultado
+    return "unsat"
 
 """
     Função resposável por tratar linha e retornar uma lista de ints
@@ -99,14 +93,16 @@ def executar(arquivo_entrada):
     with open(arquivo_entrada, 'rt') as f:
         for linha in f:
             itens = processar_linha(linha)
-            if primeira_linha and itens[0] > 4:
-                proxima_linha = next(f)
-                proxima_linha = processar_linha(proxima_linha)
-                itens = itens + proxima_linha
+            # if primeira_linha and itens[0] > 4:
+            #    proxima_linha = next(f)
+            #    proxima_linha = processar_linha(proxima_linha)
+            #    itens = itens + proxima_linha
             primeira_linha = True
             clausulas.append(itens)
 
-    clausulas = [claus[2:] for claus in clausulas[1:]] # removendo dois primeiros
+    #clausulas = [claus[2:] for claus in clausulas[1:]] # removendo dois primeiros
+    clausulas = clausulas[1:]
+
     return resolver_sat(clausulas)
 
 # 3-sat.py
