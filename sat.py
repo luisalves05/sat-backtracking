@@ -8,8 +8,6 @@
 #
 
 import copy
-import sys, getopt
-import time
 
 """
     Função resposável por resolver o problema SAT

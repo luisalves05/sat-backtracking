@@ -8,35 +8,43 @@
 
 import unittest
 import sat
+import time
+
 
 class Test3Sat(unittest.TestCase):
-    
     def teste1(self):
-        resultado = sat.executar("Teste1.txt")
-        self.assertEqual(resultado, "unsat")
+        start = time.time()
+        resultado = sat.executar("n50m275.txt")
+        end = time.time()
+        print("Tempo: {0}".format(end - start))
+        self.assertEqual(resultado, "sat")
 
     def teste2(self):
-        resultado = sat.executar("Teste2.txt")
-        self.assertEqual(resultado, "unsat")
-
-    def teste3(self):
-        resultado = sat.executar("Teste3.txt")
-        self.assertEqual(resultado, "unsat")
-
-    def teste4(self):
-        resultado = sat.executar("Teste4.txt")
-        self.assertEqual(resultado, "unsat")
+        start = time.time()
+        resultado = sat.executar("n50m300.txt")
+        end = time.time()
+        print("Tempo: {0}".format(end - start))
+        self.assertEqual(resultado, "sat")
 
     #
     # Casos pequenos de testes feito por nós
     #
-    def teste5(self):
-        resultado = sat.executar("Teste5.txt")
+    def teste1(self):
+        resultado = sat.executar("MeuTeste1-SAT.txt")
         self.assertEqual(resultado, "sat")
 
-    def teste6(self):
-        resultado = sat.executar("Teste6.txt")
+    def teste2(self):
+        resultado = sat.executar("MeuTeste2-UNSAT.txt")
         self.assertEqual(resultado, "unsat")
+
+    def teste3(self):
+        resultado = sat.executar("MeuTeste3-UNSAT.txt")
+        self.assertEqual(resultado, "unsat")
+
+    def teste4(self):
+        resultado = sat.executar("MeuTeste4-SAT.txt")
+        self.assertEqual(resultado, "sat")
+
 
 if __name__ == "__main__":
     unittest.main()
