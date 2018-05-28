@@ -33,9 +33,12 @@ def resolver_sat(clausulas, solu, elem):
     elemento = clausulas[0][0] # primeiro elemento
     estado_anterior = copy.deepcopy(clausulas)
 
-    for i in range(0, len(clausulas)):
-        solu[elemento] = 0
+    if elemento < 0:
         solu[-elemento] = 1
+    else:
+        solu[elemento] = 0
+
+    for i in range(0, len(clausulas)):
         if -elemento in clausulas[i] and elemento in clausulas[i]: # a clausula se torna falsa
             return "unsat"
         elif -elemento in clausulas[i]:
@@ -50,15 +53,16 @@ def resolver_sat(clausulas, solu, elem):
     # Primeira Parte: elemento receberá 0
 
     if resolver_sat(clausulas, solu, elemento) == "sat":
-        solu[elemento] = 0
-        solu[-elemento] = 1
         return "sat"
 
     clausulas = copy.deepcopy(estado_anterior)
 
-    for i in range(0, len(clausulas)):
-        solu[elemento] = 1
+    if elemento < 0:
         solu[-elemento] = 0
+    else:
+        solu[elemento] = 1
+
+    for i in range(0, len(clausulas)):
         if -elemento in clausulas[i] and elemento in clausulas[i]: # a clausula se torna falsa
             return "unsat"
         elif elemento in clausulas[i]: # elemento é 1
