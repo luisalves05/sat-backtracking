@@ -28,70 +28,21 @@ class Test3Sat(unittest.TestCase):
         print("Tempo: {0}".format(str(datetime.timedelta(seconds=end - start))))
         self.assertEqual(resultado[0], "sat")
 
-    #
-    # Casos pequenos de testes feito por nós
-    #
-    # def teste1(self):
-    #     start = time.time()
-    #     resultado = sat.executar("MeuTeste1-SAT.txt")
-    #     end = time.time()
-    #     print("Solução: {0}".format(resultado[1]))
-    #     print("Tempo: {0}".format(str(datetime.timedelta(seconds=end - start))))
-    #     self.assertEqual(resultado[0], "sat")
-    #
-    # def teste2(self):
-    #     start = time.time()
-    #     resultado = sat.executar("MeuTeste2-UNSAT.txt")
-    #     end = time.time()
-    #     print("Solução: {0}".format(resultado[1]))
-    #     print("Tempo: {0}".format(str(datetime.timedelta(seconds=end - start))))
-    #     self.assertEqual(resultado[0], "unsat")
-    #
-    # def teste3(self):
-    #     start = time.time()
-    #     resultado = sat.executar("MeuTeste3-UNSAT.txt")
-    #     end = time.time()
-    #     print("Solução: {0}".format(resultado[1]))
-    #     print("Tempo: {0}".format(str(datetime.timedelta(seconds=end - start))))
-    #     self.assertEqual(resultado[0], "unsat")
-    #
-    # def teste4(self):
-    #     start = time.time()
-    #     resultado = sat.executar("MeuTeste4-SAT.txt")
-    #     end = time.time()
-    #     print("Solução: {0}".format(resultado[1]))
-    #     print("Tempo: {0}".format(str(datetime.timedelta(seconds=end - start))))
-    #     self.assertEqual(resultado[0], "sat")def teste1(self):
-    #     start = time.time()
-    #     resultado = sat.executar("MeuTeste1-SAT.txt")
-    #     end = time.time()
-    #     print("Solução: {0}".format(resultado[1]))
-    #     print("Tempo: {0}".format(str(datetime.timedelta(seconds=end - start))))
-    #     self.assertEqual(resultado[0], "sat")
-    #
-    # def teste2(self):
-    #     start = time.time()
-    #     resultado = sat.executar("MeuTeste2-UNSAT.txt")
-    #     end = time.time()
-    #     print("Solução: {0}".format(resultado[1]))
-    #     print("Tempo: {0}".format(str(datetime.timedelta(seconds=end - start))))
-    #     self.assertEqual(resultado[0], "unsat")
-    #
-    # def teste3(self):
-    #     start = time.time()
-    #     resultado = sat.executar("MeuTeste3-UNSAT.txt")
-    #     end = time.time()
-    #     print("Solução: {0}".format(resultado[1]))
-    #     print("Tempo: {0}".format(str(datetime.timedelta(seconds=end - start))))
-    #     self.assertEqual(resultado[0], "unsat")
-    #
-    # def teste4(self):
-    #     start = time.time()
-    #     resultado = sat.executar("MeuTeste4-SAT.txt")
-    #     end = time.time()
-    #     print("Solução: {0}".format(resultado[1]))
-    #     print("Tempo: {0}".format(str(datetime.timedelta(seconds=end - start))))
-    #     self.assertEqual(resultado[0], "sat")
+    def teste3(self):
+        start = time.time()
+        resultado = sat.executar("Teste1.txt")
+        end = time.time()
+        print("Solução: {0}".format(resultado[1]))
+        print("Tempo: {0}".format(str(datetime.timedelta(seconds=end - start))))
+        self.assertEqual(resultado[0], "sat")
+
+    def teste4(self):
+        start = time.time()
+        resultado = sat.executar("Teste2.txt")
+        end = time.time()
+        print("Solução: {0}".format(resultado[1]))
+        print("Tempo: {0}".format(str(datetime.timedelta(seconds=end - start))))
+        self.assertEqual(resultado[0], "unsat")
 
 
 if __name__ == "__main__":
